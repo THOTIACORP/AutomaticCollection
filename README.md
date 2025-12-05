@@ -7,6 +7,22 @@
 * padronização fotográfica
 * uso para prontuários odontológicos
 
+<table align="center">
+  <tr>
+    <td><img src="./public/imgFaceFrontal.jpg" width="150"></td>  
+    <td><img src="./public/imgFaceLateralDireita.png" width="150"></td>
+    <td><img src="./public/imgFaceLateralEsquerda.png" width="150"></td>
+      <td><img src="./public/FaceSorrindo.jpeg" width="150"></td>
+  </tr>
+  <tr>
+    <td><img src="./public/imgFaceSurpresa.png" width="150"></td>
+    <td><img src="./public/imgFaceBravo.png" width="150"></td>
+    <td><img src="./public/FaceSorrindo.jpeg" width="150"></td>
+    <td><img src="./public/imgFaceFrontalAR.png" width="150"></td>
+  </tr>
+</table>
+
+
 Componente Open Innovation do Ecossistema Escudo Orofacial
 
 Este módulo foi desenvolvido para permitir a coleta automática, padronizada e reprodutível de imagens extraorais, utilizando câmeras reutilizáveis, webcams convencionais ou sistemas de captura conectados. Seu objetivo é facilitar a documentação clínica em odontologia, harmonização orofacial, estetica e pesquisa científica.
@@ -42,17 +58,17 @@ Criando um padrão nacional de documentação orofacial acessível, científica 
 <br></br><br></br>
 
 ## 🧠 2. Fluxo Técnico Completo
-| **Etapa**                              | **Descrição**                                     | **Ferramenta / Script**  | **Entrada**        | **Saída / Resultado**    |
-| -------------------------------------- | ------------------------------------------------- | ------------------------ | ------------------ | ------------------------ |
+| **Etapa**                             | **Descrição**                                     | **Ferramenta / Script**  | **Entrada**        | **Saída / Resultado**    |
+| ------------------------------------- | ------------------------------------------------- | ------------------------ | ------------------ | ------------------------ |
 | 🟦 **1 — Dispositivo**                 | Inicialização da câmera reutilizável / webcam.    | `device_probe.py`        | USB / Webcam       | Câmera detectada + specs |
 | 🟧 **2 — Detecção Facial**             | Identificação de rosto + landmarks em tempo real. | `face_detector.py`       | Frame bruto        | Caixa facial + pontos    |
 | 🟩 **3 — Align-Face**                  | Correção de rotação, pitch, yaw e centralização.  | `align_face.py`          | Landmarks          | Frame alinhado           |
 | 🟨 **4 — Verificação de Pose**         | Checagem automática: frontal, perfil dir/esq.     | `pose_check.py`          | Rosto alinhado     | Pose válida (ou retorno) |
 | 🟪 **5 — Reconhecimento de Expressão** | IA identifica expressão (fer.py).                 | `fer_detection.py`       | Frame alinhado     | Emoção + confiança       |
 | 🟫 **6 — Gatilho Automático**          | Captura somente se pose + expressão ≥ critérios.  | `auto_capture.py`        | Dados anteriores   | JPG + metadata.json      |
-| 🔵 **7 — Pós-Processamento**           | Anotações de posição, padronização clínica.        | `process_annotations.py` | Imagens capturadas | Versões anotadas         |
-| 🔴 **8 — Laudo / PDF**                 | Geração do conjunto de imagens.                    | `generate_pdf.py`        | Imagens anotadas   | PDF clínico              |
-| ⚫ **9 — Armazenamento**                | Salvamento local/DB + versionamento.              | `storage_manager.py`     | PDF + imagens      | Arquivo organizado       |
+| 🔵 **7 — Pós-Processamento**           | Anotações de posição, padronização clínica.       | `process_annotations.py` | Imagens capturadas | Versões anotadas         |
+| 🔴 **8 — Laudo / PDF**                 | Geração do conjunto de imagens.                   | `generate_pdf.py`        | Imagens anotadas   | PDF clínico              |
+| ⚫ **9 — Armazenamento**               | Salvamento local/DB + versionamento.              | `storage_manager.py`     | PDF + imagens      | Arquivo organizado       |
 
 <br></br><br></br>
 
