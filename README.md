@@ -38,6 +38,8 @@ O módulo combina:
 
 Ele nasce como uma iniciativa open innovation que reúne inovação tecnológica e impacto social através da parceria entre:
 **IGEos, Fundação Banco do Brasil, UFPEL, UFR, UNEMAT - 49.452.135 Inova Simples (I.s.)**
+
+Criando um padrão nacional de documentação orofacial acessível, científica e interoperável.
 <table align="center" style="border-collapse: collapse;">
   <!-- LINHA DAS LOGOS -->
   <tr>
@@ -54,10 +56,10 @@ Ele nasce como uma iniciativa open innovation que reúne inovação tecnológica
       <img src="./public/logo_ufr.png" width="120">
     </td>
     <td align="center" style="padding: 18px;">
-      <img src="./public/logo_unemat.png" width="120">
+      <img src="./public/logo_unemat.jpg" width="120">
     </td>
     <td align="center" style="padding: 18px;">
-      <img src="./public/logo_inova_simples.png" width="120">
+      <img src="./public/logo.png" width="120">
     </td>
   </tr>
 
@@ -94,9 +96,6 @@ Ele nasce como uma iniciativa open innovation que reúne inovação tecnológica
   </tr>
 </table>
 
-
-
-Criando um padrão nacional de documentação orofacial acessível, científica e interoperável.
 <br></br><br></br>
 
 ## 🎯 1. Objetivos Clínicos
