@@ -97,8 +97,6 @@ Ele nasce como uma iniciativa open innovation que reúne inovação tecnológica
 <br></br><br></br>
 
 ## 💎 1. - Sumário 
-<br></br>
-
 - [**Módulo de Coleta Automática de Imagens Extraorais com câmeras reutilizáveis**](#módulo-de-coleta-automática-de-imagens-extraorais-com-câmeras-reutilizáveis)
   - [💎 1. - Sumário](#-1---sumário)
   - [🎯 2. Objetivos Clínicos](#-2-objetivos-clínicos)
@@ -112,11 +110,7 @@ Ele nasce como uma iniciativa open innovation que reúne inovação tecnológica
   - [🚀 10. Objetivo do Open Innovation](#-10-objetivo-do-open-innovation)
   - [📦 11. Como executar](#-11-como-executar)
 
-<br></br><br></br>
-
-
 ## 🎯 2. Objetivos Clínicos
-
 - ✔️ Usar equipamentos de baixo custo e câmeras reutilizáveis, promovendo acesso em unidades públicas de saúde
 - ✔️ Permitir comparações temporais confiáveis (antes / depois / acompanhamento clínico)
 - ✔️ Criar um protocolo padronizado nacional de documentação facial extraoral
