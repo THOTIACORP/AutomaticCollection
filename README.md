@@ -76,7 +76,7 @@ Criando um padrão nacional de documentação orofacial acessível, científica 
   <!-- LINHA DOS LINKS (customizável) -->
   <tr>
     <td align="center">
-      <a href="https://igeos.org" target="_blank">🔗 Site</a>
+      <a href="https://igeos.org.br" target="_blank">🔗 Site</a>
     </td>
     <td align="center">
       <a href="https://www.fbb.org.br" target="_blank">🔗 Site</a>
@@ -85,13 +85,13 @@ Criando um padrão nacional de documentação orofacial acessível, científica 
       <a href="https://ufpel.edu.br" target="_blank">🔗 Site</a>
     </td>
     <td align="center">
-      <a href="https://ufr.br" target="_blank">🔗 Site</a>
+      <a href="https://ufr.edu.br" target="_blank">🔗 Site</a>
     </td>
     <td align="center">
       <a href="https://unemat.br" target="_blank">🔗 Site</a>
     </td>
     <td align="center">
-      <a href="https://gov.br/inova" target="_blank">🔗 Registro I.S.</a>
+      <a href="https://engenhariaorofacial.com.br" target="_blank">🔗 Site</a>
     </td>
   </tr>
 </table>
