@@ -11,13 +11,12 @@
   <tr>
     <td><img src="./public/imgFaceFrontal.jpg" width="150"height="150"></td>  
     <td><img src="./public/imgFaceLateralDireita.png" width="150"height="150"></td>
-    <td><img src="./public/imgFaceLateralEsquerda.png" width="150"height="150"></td>
-      <td><img src="./public/FaceSorrindo.jpeg" width="150"height="150"></td>
+    <td><img src="./public/imgFaceLateralEsquerda.png" width="150"height="150"></td>     
   </tr>
   <tr>
     <td><img src="./public/imgFaceSurpresa.png" width="150"height="150" ></td>
     <td><img src="./public/imgFaceBravo.png" width="150"height="150"></td>
-    <td><img src="./public/FaceSorrindo.jpeg" width="150"height="150"></td>
+     <td><img src="./public/FaceSorrindo.jpeg" width="150"height="150"></td>
     <td><img src="./public/imgFaceFrontalAR.png" width="150"height="150"></td>
   </tr>
 </table>
