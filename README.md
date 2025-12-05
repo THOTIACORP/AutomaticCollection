@@ -28,6 +28,8 @@ Criando um padrão nacional de documentação orofacial acessível, científica 
 
 ## 🎯 1. Objetivos Clínicos
 
+- ✔️ Usar equipamentos de baixo custo e câmeras reutilizáveis, promovendo acesso em unidades públicas de saúde
+- ✔️ Permitir comparações temporais confiáveis (antes / depois / acompanhamento clínico)
 - ✔️ Criar um protocolo padronizado nacional de documentação facial extraoral
 - ✔️ Reduzir erros de rotação, inclinação e distância
 - ✔️ Padronizar fotografias clínicas para:
@@ -37,37 +39,31 @@ Criando um padrão nacional de documentação orofacial acessível, científica 
 - perícias judiciais
 - ensino universitário
 - pesquisa científica
-
-
-- ✔️ Usar equipamentos de baixo custo e câmeras reutilizáveis, promovendo acesso em unidades públicas de saúde
-- ✔️ Permitir comparações temporais confiáveis (antes / depois / acompanhamento clínico)
 <br></br><br></br>
 
 ## 🧠 2. Fluxo Técnico Completo
-flowchart TD
-- A[📷 Câmera Reutilizável / Webcam] --> B[🔍 Detecção de Face (dlib/mediapipe)]
-- B --> C[📐 Align-Face (correção de rotação, pitch, yaw)]
-- C --> D{Modo solicitado?}
+| **Etapa**                              | **Descrição**                                     | **Ferramenta / Script**  | **Entrada**        | **Saída / Resultado**    |
+| -------------------------------------- | ------------------------------------------------- | ------------------------ | ------------------ | ------------------------ |
+| 🟦 **1 — Dispositivo**                 | Inicialização da câmera reutilizável / webcam.    | `device_probe.py`        | USB / Webcam       | Câmera detectada + specs |
+| 🟧 **2 — Detecção Facial**             | Identificação de rosto + landmarks em tempo real. | `face_detector.py`       | Frame bruto        | Caixa facial + pontos    |
+| 🟩 **3 — Align-Face**                  | Correção de rotação, pitch, yaw e centralização.  | `align_face.py`          | Landmarks          | Frame alinhado           |
+| 🟨 **4 — Verificação de Pose**         | Checagem automática: frontal, perfil dir/esq.     | `pose_check.py`          | Rosto alinhado     | Pose válida (ou retorno) |
+| 🟪 **5 — Reconhecimento de Expressão** | IA identifica expressão (fer.py).                 | `fer_detection.py`       | Frame alinhado     | Emoção + confiança       |
+| 🟫 **6 — Gatilho Automático**          | Captura somente se pose + expressão ≥ critérios.  | `auto_capture.py`        | Dados anteriores   | JPG + metadata.json      |
+| 🔵 **7 — Pós-Processamento**           | Anotações de posição, padronização clínica.        | `process_annotations.py` | Imagens capturadas | Versões anotadas         |
+| 🔴 **8 — Laudo / PDF**                 | Geração do conjunto de imagens.                    | `generate_pdf.py`        | Imagens anotadas   | PDF clínico              |
+| ⚫ **9 — Armazenamento**                | Salvamento local/DB + versionamento.              | `storage_manager.py`     | PDF + imagens      | Arquivo organizado       |
 
-- D -->|Neutro| E[🎯 Avaliar posição: frontal / dir / esq]
-- E --> F{Posição válida?}
-- F -->|Sim| G[📸 Captura Automática Neutra]
-- F -->|Não| A
-
-- D -->|Expressão| H[😃 Análise da expressão com fer.py]
-- H --> I{Expressão corresponde ao alvo?}
-- I -->|Sim| J[📸 Captura Automática da Expressão]
-- I -->|Não| A
 <br></br><br></br>
 
 📐 3. Pipeline de Posição — Align Face
 
 O align-face corrige automaticamente:
-rotação lateral (yaw)
-inclinação vertical (pitch)
-rotação axial (roll)
-centralização
-distância padrão da câmera
+- rotação lateral (yaw)
+- inclinação vertical (pitch)
+- rotação axial (roll)
+- centralização
+- distância padrão da câmera
 
 Parâmetros usados para considerar a imagem válida:
 - Frontal neutra
@@ -192,13 +188,15 @@ Apoia pesquisa, extensão e uso comunitário do sistema
 🚀 9. Objetivo do Open Innovation
 Criar um padrão nacional testado e auditável para documentação facial extraoral:
 
-✔️ reduzir desigualdades tecnológicas
-✔️ permitir uso em clínicas privadas e públicas
-✔️ incorporar em plataformas SUS
-✔️ permitir auditoria científica
-✔️ interoperar com prontuários eletrônicos
+- ✔️ reduzir desigualdades tecnológicas
+- ✔️ permitir uso em clínicas privadas e públicas
+- ✔️ incorporar em plataformas SUS
+- ✔️ permitir auditoria científica
+- ✔️ interoperar com prontuários eletrônicos
 <br></br><br></br>
 
 📦 10. Como executar
+```bash
 pip install opencv-python dlib fer numpy
 python auto_capture.py
+```
