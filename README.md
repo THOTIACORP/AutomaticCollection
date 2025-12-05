@@ -38,45 +38,62 @@ O módulo combina:
 
 Ele nasce como uma iniciativa open innovation que reúne inovação tecnológica e impacto social através da parceria entre:
 **IGEos, Fundação Banco do Brasil, UFPEL, UFR, UNEMAT - 49.452.135 Inova Simples (I.s.)**
-
-<table align="center">
+<table align="center" style="border-collapse: collapse;">
+  <!-- LINHA DAS LOGOS -->
   <tr>
-    <td align="center">
-      <img src="./public/logo_igeos.png" width="180"><br>
-      <b>IGEos</b>
+    <td align="center" style="padding: 18px;">
+      <img src="./public/logo_igeos.png" width="120">
     </td>
-    <td align="center">
-      <img src="./public/logo_fbb.jpg" width="180"><br>
-      <b>Fundação Banco do Brasil</b>
+    <td align="center" style="padding: 18px;">
+      <img src="./public/logo_fbb.jpg" width="120">
     </td>
-    <td align="center">
-      <img src="./public/logo_ufpel.png" width="180"><br>
-      <b>UFPEL</b>
+    <td align="center" style="padding: 18px;">
+      <img src="./public/logo_ufpel.png" width="120">
     </td>
-    <td align="center">
-      <img src="./public/logo_ufr.png" width="180"><br>
-      <b>UFR</b>
+    <td align="center" style="padding: 18px;">
+      <img src="./public/logo_ufr.png" width="120">
+    </td>
+    <td align="center" style="padding: 18px;">
+      <img src="./public/logo_unemat.png" width="120">
+    </td>
+    <td align="center" style="padding: 18px;">
+      <img src="./public/logo_inova_simples.png" width="120">
     </td>
   </tr>
+
+  <!-- LINHA DOS NOMES -->
+  <tr>
+    <td align="center"><b>IGEos</b></td>
+    <td align="center"><b>Fundação Banco do Brasil</b></td>
+    <td align="center"><b>UFPEL</b></td>
+    <td align="center"><b>UFR</b></td>
+    <td align="center"><b>UNEMAT</b></td>
+    <td align="center"><b>Inova Simples (49.452.135)</b></td>
+  </tr>
+
+  <!-- LINHA DOS LINKS (customizável) -->
   <tr>
     <td align="center">
-      <img src="logo_unemat.png" width="180"><br>
-      <b>UNEMAT</b>
+      <a href="https://igeos.org" target="_blank">🔗 Site</a>
     </td>
     <td align="center">
-      <img src="logo_inova_simples.png" width="180"><br>
-      <b>49.452.135 Inova Simples (I.S.)</b>
+      <a href="https://www.fbb.org.br" target="_blank">🔗 Site</a>
     </td>
     <td align="center">
-      <img src="logo_apoio_extra.png" width="180"><br>
-      <b>Apoio Extra (opcional)</b>
+      <a href="https://ufpel.edu.br" target="_blank">🔗 Site</a>
     </td>
     <td align="center">
-      <img src="logo_apoio_extra2.png" width="180"><br>
-      <b>Apoio Extra 2 (opcional)</b>
+      <a href="https://ufr.br" target="_blank">🔗 Site</a>
+    </td>
+    <td align="center">
+      <a href="https://unemat.br" target="_blank">🔗 Site</a>
+    </td>
+    <td align="center">
+      <a href="https://gov.br/inova" target="_blank">🔗 Registro I.S.</a>
     </td>
   </tr>
 </table>
+
 
 
 Criando um padrão nacional de documentação orofacial acessível, científica e interoperável.
