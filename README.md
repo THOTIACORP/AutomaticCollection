@@ -7,6 +7,10 @@
 * padronização fotográfica
 * uso para prontuários odontológicos
 
+Componente Open Innovation do Ecossistema Escudo Orofacial
+
+Este módulo foi desenvolvido para permitir a coleta automática, padronizada e reprodutível de imagens extraorais, utilizando câmeras reutilizáveis, webcams convencionais ou sistemas de captura conectados. Seu objetivo é facilitar a documentação clínica em odontologia, harmonização orofacial, estetica e pesquisa científica.
+
 <table align="center">
   <tr>
     <td><img src="./public/imgFaceFrontal.jpg" width="150"height="150"></td>  
@@ -23,10 +27,6 @@
 </table>
 
 
-Componente Open Innovation do Ecossistema Escudo Orofacial
-
-Este módulo foi desenvolvido para permitir a coleta automática, padronizada e reprodutível de imagens extraorais, utilizando câmeras reutilizáveis, webcams convencionais ou sistemas de captura conectados. Seu objetivo é facilitar a documentação clínica em odontologia, harmonização orofacial, estetica e pesquisa científica.
-
 O módulo combina:
 
 - detecção facial em tempo real
@@ -37,7 +37,47 @@ O módulo combina:
 - reutilização de setups fotográficos existentes (clínicas, hospitais, universidades, SUS)
 
 Ele nasce como uma iniciativa open innovation que reúne inovação tecnológica e impacto social através da parceria entre:
-**IGEos, Fundação Banco do Brasil, UFPEL, UFR, UNEMAT**
+**IGEos, Fundação Banco do Brasil, UFPEL, UFR, UNEMAT - 49.452.135 Inova Simples (I.s.)**
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="./public/logo_igeos.png" width="180"><br>
+      <b>IGEos</b>
+    </td>
+    <td align="center">
+      <img src="./public/logo_fbb.jpg" width="180"><br>
+      <b>Fundação Banco do Brasil</b>
+    </td>
+    <td align="center">
+      <img src="./public/logo_ufpel.png" width="180"><br>
+      <b>UFPEL</b>
+    </td>
+    <td align="center">
+      <img src="./public/logo_ufr.png" width="180"><br>
+      <b>UFR</b>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="logo_unemat.png" width="180"><br>
+      <b>UNEMAT</b>
+    </td>
+    <td align="center">
+      <img src="logo_inova_simples.png" width="180"><br>
+      <b>49.452.135 Inova Simples (I.S.)</b>
+    </td>
+    <td align="center">
+      <img src="logo_apoio_extra.png" width="180"><br>
+      <b>Apoio Extra (opcional)</b>
+    </td>
+    <td align="center">
+      <img src="logo_apoio_extra2.png" width="180"><br>
+      <b>Apoio Extra 2 (opcional)</b>
+    </td>
+  </tr>
+</table>
+
 
 Criando um padrão nacional de documentação orofacial acessível, científica e interoperável.
 <br></br><br></br>
