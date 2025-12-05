@@ -94,10 +94,28 @@ Ele nasce como uma iniciativa open innovation que reúne inovação tecnológica
     </td>
   </tr>
 </table>
+<br></br><br></br>
+
+## 1. - Sumário 
+<br></br>
+
+- [**Módulo de Coleta Automática de Imagens Extraorais com câmeras reutilizáveis**](#módulo-de-coleta-automática-de-imagens-extraorais-com-câmeras-reutilizáveis)
+  - [1. - Sumário](#1---sumário)
+  - [🎯 2. Objetivos Clínicos](#-2-objetivos-clínicos)
+  - [🧠 3. Fluxo Técnico Completo](#-3-fluxo-técnico-completo)
+  - [📐 4. Pipeline de Posição — Align Face](#-4-pipeline-de-posição--align-face)
+  - [😃 5. Pipeline de Expressões — fer.py](#-5-pipeline-de-expressões--ferpy)
+  - [🖼️ 6. Padronização Fotográfica Clínica](#️-6-padronização-fotográfica-clínica)
+  - [🏛️ 7. Uso em Prontuários Odontológicos e Médicos](#️-7-uso-em-prontuários-odontológicos-e-médicos)
+  - [🧩 8. Por que Câmeras Reutilizáveis?](#-8-por-que-câmeras-reutilizáveis)
+  - [🌍 9. Open Innovation e Impacto Social (IGEos, Fundação BB, UFPEL, UFR, UNEMAT)](#-9-open-innovation-e-impacto-social-igeos-fundação-bb-ufpel-ufr-unemat)
+  - [🚀 10. Objetivo do Open Innovation](#-10-objetivo-do-open-innovation)
+  - [📦 11. Como executar](#-11-como-executar)
 
 <br></br><br></br>
 
-## 🎯 1. Objetivos Clínicos
+
+## 🎯 2. Objetivos Clínicos
 
 - ✔️ Usar equipamentos de baixo custo e câmeras reutilizáveis, promovendo acesso em unidades públicas de saúde
 - ✔️ Permitir comparações temporais confiáveis (antes / depois / acompanhamento clínico)
@@ -112,7 +130,7 @@ Ele nasce como uma iniciativa open innovation que reúne inovação tecnológica
 - pesquisa científica
 <br></br><br></br>
 
-## 🧠 2. Fluxo Técnico Completo
+## 🧠 3. Fluxo Técnico Completo
 | **Etapa**                             | **Descrição**                                     | **Ferramenta / Script**  | **Entrada**        | **Saída / Resultado**    |
 | ------------------------------------- | ------------------------------------------------- | ------------------------ | ------------------ | ------------------------ |
 | 🟦 **1 — Dispositivo**                 | Inicialização da câmera reutilizável / webcam.    | `device_probe.py`        | USB / Webcam       | Câmera detectada + specs |
@@ -127,7 +145,7 @@ Ele nasce como uma iniciativa open innovation que reúne inovação tecnológica
 
 <br></br><br></br>
 
-## 📐 3. Pipeline de Posição — Align Face
+## 📐 4. Pipeline de Posição — Align Face
 
 O align-face corrige automaticamente:
 - rotação lateral (yaw)
@@ -156,7 +174,7 @@ Parâmetros usados para considerar a imagem válida:
 Se todos os parâmetros forem aprovados → captura automática (sem clique do usuário).
 <br></br><br></br>
 
-## 😃 4. Pipeline de Expressões — fer.py
+## 😃 5. Pipeline de Expressões — fer.py
 
 Usamos o FER (Facial Expression Recognition) para reconhecer automaticamente:
 
@@ -175,7 +193,7 @@ Regra de captura:
 - iluminação aceitável
 <br></br><br></br>
 
-## 🖼️ 5. Padronização Fotográfica Clínica
+## 🖼️ 6. Padronização Fotográfica Clínica
 Parâmetros adotados:
 
 - ✔️ fundo neutro
@@ -196,7 +214,7 @@ Conjunto final de imagens geradas:
 - expressao_tristeza.jpg
 <br></br><br></br>
 
-## 🏛️ 6. Uso em Prontuários Odontológicos e Médicos
+## 🏛️ 7. Uso em Prontuários Odontológicos e Médicos
 
 As imagens seguem padrões aceitos em:
 - prontuários clínicos
@@ -216,7 +234,7 @@ Cada imagem é salva com:
 - condição da captura (pose, expressão, alinhamento)
 <br></br><br></br>
 
-## 🧩 7. Por que Câmeras Reutilizáveis?
+## 🧩 8. Por que Câmeras Reutilizáveis?
 
 Este módulo é desenhado para equipamentos já existentes, como:
 - câmeras USB antigas
@@ -231,7 +249,7 @@ Isso reduz custos → ideal para:
 - projetos sociais
 <br></br><br></br>
 
-## 🌍 8. Open Innovation e Impacto Social (IGEos, Fundação BB, UFPEL, UFR, UNEMAT)
+## 🌍 9. Open Innovation e Impacto Social (IGEos, Fundação BB, UFPEL, UFR, UNEMAT)
 
 Este módulo nasce dentro de um ecossistema de inovação aberta, com objetivo de criar um padrão brasileiro de documentação facial acessível e auditável.
 
@@ -256,7 +274,7 @@ Colabora com validação de softwares
 Apoia pesquisa, extensão e uso comunitário do sistema
 <br></br><br></br>
 
-## 🚀 9. Objetivo do Open Innovation
+## 🚀 10. Objetivo do Open Innovation
 Criar um padrão nacional testado e auditável para documentação facial extraoral:
 
 - ✔️ reduzir desigualdades tecnológicas
@@ -266,7 +284,7 @@ Criar um padrão nacional testado e auditável para documentação facial extrao
 - ✔️ interoperar com prontuários eletrônicos
 <br></br><br></br>
 
-## 📦 10. Como executar
+## 📦 11. Como executar
 ```bash
 pip install opencv-python dlib fer numpy
 python auto_capture.py
