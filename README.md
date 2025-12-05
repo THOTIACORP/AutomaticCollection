@@ -56,7 +56,7 @@ Criando um padrão nacional de documentação orofacial acessível, científica 
 
 <br></br><br></br>
 
-📐 3. Pipeline de Posição — Align Face
+## 📐 3. Pipeline de Posição — Align Face
 
 O align-face corrige automaticamente:
 - rotação lateral (yaw)
@@ -85,7 +85,7 @@ Parâmetros usados para considerar a imagem válida:
 Se todos os parâmetros forem aprovados → captura automática (sem clique do usuário).
 <br></br><br></br>
 
-😃 4. Pipeline de Expressões — fer.py
+## 😃 4. Pipeline de Expressões — fer.py
 
 Usamos o FER (Facial Expression Recognition) para reconhecer automaticamente:
 
@@ -104,7 +104,7 @@ Regra de captura:
 - iluminação aceitável
 <br></br><br></br>
 
-🖼️ 5. Padronização Fotográfica Clínica
+## 🖼️ 5. Padronização Fotográfica Clínica
 Parâmetros adotados:
 
 - ✔️ fundo neutro
@@ -125,7 +125,7 @@ Conjunto final de imagens geradas:
 - expressao_tristeza.jpg
 <br></br><br></br>
 
-🏛️ 6. Uso em Prontuários Odontológicos e Médicos
+## 🏛️ 6. Uso em Prontuários Odontológicos e Médicos
 
 As imagens seguem padrões aceitos em:
 - prontuários clínicos
@@ -145,7 +145,7 @@ Cada imagem é salva com:
 - condição da captura (pose, expressão, alinhamento)
 <br></br><br></br>
 
-🧩 7. Por que Câmeras Reutilizáveis?
+## 🧩 7. Por que Câmeras Reutilizáveis?
 
 Este módulo é desenhado para equipamentos já existentes, como:
 - câmeras USB antigas
@@ -160,7 +160,7 @@ Isso reduz custos → ideal para:
 - projetos sociais
 <br></br><br></br>
 
-🌍 8. Open Innovation e Impacto Social (IGEos, Fundação BB, UFPEL, UFR, UNEMAT)
+## 🌍 8. Open Innovation e Impacto Social (IGEos, Fundação BB, UFPEL, UFR, UNEMAT)
 
 Este módulo nasce dentro de um ecossistema de inovação aberta, com objetivo de criar um padrão brasileiro de documentação facial acessível e auditável.
 
@@ -185,7 +185,7 @@ Colabora com validação de softwares
 Apoia pesquisa, extensão e uso comunitário do sistema
 <br></br><br></br>
 
-🚀 9. Objetivo do Open Innovation
+## 🚀 9. Objetivo do Open Innovation
 Criar um padrão nacional testado e auditável para documentação facial extraoral:
 
 - ✔️ reduzir desigualdades tecnológicas
@@ -195,7 +195,7 @@ Criar um padrão nacional testado e auditável para documentação facial extrao
 - ✔️ interoperar com prontuários eletrônicos
 <br></br><br></br>
 
-📦 10. Como executar
+## 📦 10. Como executar
 ```bash
 pip install opencv-python dlib fer numpy
 python auto_capture.py
