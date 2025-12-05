@@ -96,11 +96,11 @@ Ele nasce como uma iniciativa open innovation que reúne inovação tecnológica
 </table>
 <br></br><br></br>
 
-## 1. - Sumário 
+## 💎 1. - Sumário 
 <br></br>
 
 - [**Módulo de Coleta Automática de Imagens Extraorais com câmeras reutilizáveis**](#módulo-de-coleta-automática-de-imagens-extraorais-com-câmeras-reutilizáveis)
-  - [1. - Sumário](#1---sumário)
+  - [💎 1. - Sumário](#-1---sumário)
   - [🎯 2. Objetivos Clínicos](#-2-objetivos-clínicos)
   - [🧠 3. Fluxo Técnico Completo](#-3-fluxo-técnico-completo)
   - [📐 4. Pipeline de Posição — Align Face](#-4-pipeline-de-posição--align-face)
@@ -122,12 +122,11 @@ Ele nasce como uma iniciativa open innovation que reúne inovação tecnológica
 - ✔️ Criar um protocolo padronizado nacional de documentação facial extraoral
 - ✔️ Reduzir erros de rotação, inclinação e distância
 - ✔️ Padronizar fotografias clínicas para:
-
-- prontuários odontológicos
-- harmonização orofacial
-- perícias judiciais
-- ensino universitário
-- pesquisa científica
+  - prontuários odontológicos
+  - harmonização orofacial
+  - perícias judiciais
+  - ensino universitário
+  - pesquisa científica
 <br></br><br></br>
 
 ## 🧠 3. Fluxo Técnico Completo
