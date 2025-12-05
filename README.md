@@ -110,6 +110,8 @@ Ele nasce como uma iniciativa open innovation que reúne inovação tecnológica
   - [🚀 10. Objetivo do Open Innovation](#-10-objetivo-do-open-innovation)
   - [📦 11. Como executar](#-11-como-executar)
 
+<br></br><br></br>
+
 ## 🎯 2. Objetivos Clínicos
 - ✔️ Usar equipamentos de baixo custo e câmeras reutilizáveis, promovendo acesso em unidades públicas de saúde
 - ✔️ Permitir comparações temporais confiáveis (antes / depois / acompanhamento clínico)
