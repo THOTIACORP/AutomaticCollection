@@ -37,9 +37,8 @@ O módulo combina:
 - reutilização de setups fotográficos existentes (clínicas, hospitais, universidades, SUS)
 
 Ele nasce como uma iniciativa open innovation que reúne inovação tecnológica e impacto social através da parceria entre:
-**IGEos, Fundação Banco do Brasil, UFPEL, UFR, UNEMAT - 49.452.135 Inova Simples (I.s.)**
+**IGEos, Fundação Banco do Brasil, UFPEL, UFR, UNEMAT - 49.452.135 Inova Simples (I.s.)** Criando um padrão nacional de documentação orofacial acessível, científica e interoperável.
 
-Criando um padrão nacional de documentação orofacial acessível, científica e interoperável.
 <table align="center" style="border-collapse: collapse;">
   <!-- LINHA DAS LOGOS -->
   <tr>
