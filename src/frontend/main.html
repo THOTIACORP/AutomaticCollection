@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Escudo Orofacial — Dashboard Futurista (Corrigido)</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mapeamento de todas as seções por ID
+            const sections = {
+                dashboard: document.getElementById('dashboard'),
+                'coleta-automatica': document.getElementById('coleta-automatica'),
+                'coleta-imagens': document.getElementById('coleta-imagens'),
+                prontuarios: document.getElementById('prontuarios'),
+                configuracoes: document.getElementById('configuracoes'),
+                'identidade-visual': document.getElementById('identidade-visual'),
+                termos: document.getElementById('termos') // ID Corrigido
+            };
+
+            const links = document.querySelectorAll('aside nav a, aside div a, a[href="#termos"]');
+            
+            const acceptContainer = document.getElementById('license-accept-container');
+            const acceptButton = document.getElementById('accept-license-btn');
+
+            let licenseAccepted = false; // Estado inicial: Licença Não Aceita
+
+            // Função para gerenciar a visibilidade do Dashboard vs. Botão de Aceite
+            function updateDashboardVisibility() {
+                if (licenseAccepted) {
+                    acceptContainer.classList.add('hidden');
+                    // Não forçamos o dashboard a aparecer aqui, apenas removemos a trava.
+                } else {
+                    // Se não aceitou, e tentou ir para o dashboard, mostramos a tela de aceite
+                    if (sections.dashboard.classList.contains('opacity-100')) {
+                         sections.dashboard.classList.add('hidden', 'opacity-0');
+                    }
+                    acceptContainer.classList.remove('hidden');
+                }
+            }
+            
+            // Ação de Aceite
+            acceptButton.addEventListener('click', () => {
+                licenseAccepted = true;
+                updateDashboardVisibility();
+                alert('Termos de Uso e Compartilhamento de Dados ACEITOS! Agora você tem acesso ao Dashboard.');
+                showTab('dashboard'); 
+            });
+
+
+            function showTab(id) {
+                const target = sections[id];
+                if (!target) return;
+
+                // 1. Esconde TODAS as seções (Inicia o Fade-Out)
+                Object.keys(sections).forEach(key => {
+                    const sec = sections[key];
+                    if (!sec || sec === target) return;
+
+                    sec.classList.remove('opacity-100', 'pointer-events-auto');
+                    sec.classList.add('opacity-0', 'pointer-events-none');
+
+                    const hideAfterTransition = () => {
+                        sec.classList.add('hidden');
+                        sec.removeEventListener('transitionend', hideAfterTransition);
+                    };
+
+                    // Se a seção não está 'hidden' (está visível/em transição), adiciona o listener
+                    if (!sec.classList.contains('hidden')) {
+                        sec.addEventListener('transitionend', hideAfterTransition);
+                    } else {
+                         // Se já estava hidden, remove imediatamente a classe 'hidden' para o target funcionar.
+                         if (sec === target) sec.classList.remove('hidden');
+                    }
+                });
+
+                // 2. Gerencia o estado de ativo/inativo nos links de navegação
+                links.forEach(link => {
+                    const linkId = link.getAttribute('href').replace('#', '');
+                    // Ajuste para links que apontam para o Termo de Uso a partir do AcceptContainer
+                    if (linkId === 'termos' && id === 'termos') {
+                        link.classList.add('bg-indigo-50', 'text-indigo-700');
+                        link.classList.remove('hover:bg-gray-50');
+                    } else if (linkId === id) {
+                        link.classList.add('bg-indigo-50', 'text-indigo-700');
+                        link.classList.remove('hover:bg-gray-50');
+                    } else {
+                        link.classList.remove('bg-indigo-50', 'text-indigo-700');
+                        link.classList.add('hover:bg-gray-50');
+                    }
+                });
+
+                // 3. Mostra a seção alvo (Inicia o Fade-In)
+                if (id === 'dashboard' && !licenseAccepted) {
+                    // Se for o dashboard e não aceitou, mostra a caixa de aceite e para.
+                    updateDashboardVisibility();
+                    
+                } else {
+                    // Para qualquer outra aba ou se o dashboard estiver aceito
+                    target.classList.remove('hidden');
+                    
+                    setTimeout(() => {
+                        target.classList.remove('opacity-0', 'pointer-events-none');
+                        target.classList.add('opacity-100', 'pointer-events-auto');
+                    }, 10);
+                }
+            }
+
+            links.forEach(link => {
+                link.addEventListener('click', e => {
+                    e.preventDefault();
+                    const id = link.getAttribute('href').replace('#', '');
+                    showTab(id);
+                });
+            });
+
+            // Inicia a aplicação mostrando a tela de bloqueio (se a licença não estiver aceita)
+            updateDashboardVisibility();
+            // Se o dashboard é o default, a função updateDashboardVisibility() o esconderá e mostrará o AcceptContainer
+            showTab('dashboard'); 
+        });
+    </script>
+
+    <style>
+        /* CSS Geral e Fontes (Mantido) */
+        @font-face {
+            font-family: 'Garet';
+            src: url('https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/Garet-Book.ttf');
+            font-weight: 400 700;
+            font-style: normal;
+            font-display: swap;
+        }
+        :root{
+            --accent: #4338CA; 
+            --accent-2: #1E73BE;
+            --glass-bg: rgba(255,255,255,0.7); 
+            --glass-border-color: rgba(67,56,202,0.08);
+            --glass-shadow: rgba(67,56,202,0.12);
+        }
+        
+        html, body{height:100%}
+        body{
+            font-family: Garet, 'Poppins', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background:white;
+            color:#0f172a
+        }
+
+        /* Neon glow utilities */
+        .neon {box-shadow:0 8px 30px var(--glass-shadow);}
+        .neon-strong {box-shadow:0 12px 50px rgba(67,56,202,0.18);} 
+        
+        /* moving subtle grid using pseudo element */
+        .bg-tech{position:relative}
+        .bg-tech::before{
+            content:'';
+            position:fixed;
+            inset:0;
+            background-image:linear-gradient(transparent 96%, rgba(67,56,202,0.04) 96%), linear-gradient(90deg, transparent 96%, rgba(67,56,202,0.04) 96%);
+            background-size:100% 40px, 40px 100%;
+            pointer-events:none;
+            mix-blend-mode:multiply
+        }
+
+        /* floating animation */
+        @keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0)}}
+        .floaty{animation:floaty 6s ease-in-out infinite}
+
+        /* glass card refatorado */
+        .glass{
+            background:linear-gradient(180deg, var(--glass-bg), rgba(255,255,255,0.55));
+            backdrop-filter:blur(10px); 
+            border:1px solid var(--glass-border-color)
+        }
+
+        .grad-border{background:linear-gradient(90deg,var(--accent),var(--accent-2));padding:2px;border-radius:12px}
+
+        .chart {height:88px;width:100%;background:linear-gradient(90deg,rgba(67,56,202,0.06),transparent);border-radius:8px}
+
+        /* Fade transitions com duração padronizada */
+        .fade-section{transition:opacity .25s ease;} 
+    </style>
+</head>
+<body class="bg-white bg-tech">
+    <div class="min-h-screen flex">
+        <aside class="w-72 p-6 border-r border-gray-100/60">
+            <div class="flex items-center gap-3 mb-8">
+                <img src="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/logoEscudo.png" class="w-12 h-12 p-1 bg-white rounded-lg neon" alt="Logo" />
+                <div>
+                    <div class="text-lg font-semibold text-gray-900">Escudo Orofacial</div>
+                    <div class="text-xs text-gray-500">Painel de Controle</div>
+                </div>
+            </div>
+
+            <nav class="space-y-1 text-sm">
+                <a class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50" href="#dashboard">
+                    📊 <span>Dashboard</span>
+                </a>
+                <a class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50" href="#coleta-automatica">
+                    🤖 <span>Coleta Automática</span>
+                </a>
+                <a class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50" href="#coleta-imagens">
+                    📸 <span>Coleta de Imagens</span>
+                </a>
+                <a class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50" href="#prontuarios">📁 Prontuários</a>
+                <a class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50" href="#configuracoes">⚙️ Configurações</a>
+            </nav>
+            
+            <div class="mt-10">
+                <div class="text-xs text-gray-500 mb-2">Documentação</div>
+                <a href="#termos" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 text-sm">
+                    📜 <span>Termo de Uso e Licença</span>
+                </a>
+                 <a href="#identidade-visual" class="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 text-sm">
+                    🎨 <span>Guia de Identidade Visual</span>
+                </a>
+            </div>
+
+            <div class="mt-8">
+                <div class="text-xs text-gray-500">Apoiadores</div>
+                <div class="mt-3 flex gap-2">
+                    <img src="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/logoEscudo.png" class="w-10 h-10 rounded-md"/>
+                    <img src="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/logoEscudo.png" class="w-10 h-10 rounded-md"/>
+                    <img src="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/logoEscudo.png" class="w-10 h-10 rounded-md"/>
+                </div>
+            </div>
+
+            <div class="mt-8 text-xs text-gray-400">v1.0 • © Eng. Orofacial</div>
+        </aside>
+
+        <main class="flex-1 p-8">
+            <header class="flex items-center justify-between mb-6">
+                <div class="flex items-center gap-6">
+                    <div class="rounded-lg grad-border p-0.5">
+                        <button class="flex items-center gap-3 bg-white/90 py-2 px-3 rounded-lg shadow-sm">
+                            <svg class="w-5 h-5 text-indigo-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12h18" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                            <span class="text-sm font-semibold">Projetos</span>
+                        </button>
+                    </div>
+                    <div class="text-sm text-gray-600">Dashboard / Estatísticas</div>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <div class="relative">
+                        <input class="border border-gray-200 rounded-full px-4 py-2 text-sm" placeholder="Buscar..." />
+                        <div class="absolute right-3 top-2 text-gray-400">⌕</div>
+                    </div>
+                    <button class="px-4 py-2 rounded-lg bg-gradient-to-r from-indigo-600 to-cyan-400 text-white shadow-md hover:opacity-95">Novo</button>
+                    <img src="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/logoEscudo.png" class="w-10 h-10 rounded-md border border-gray-100"/>
+                </div>
+            </header>
+
+            <section id="license-accept-container" class="fade-section flex flex-col items-center justify-center min-h-[500px] p-10 rounded-2xl glass neon-strong">
+                <h2 class="text-3xl font-bold mb-4 text-indigo-700">🔒 Acesso Bloqueado</h2>
+                <p class="text-lg text-gray-600 mb-8 max-w-2xl text-center">
+                    Para prosseguir e acessar o Painel de Controle, você deve aceitar os **Termos de Uso e Compartilhamento de Dados**.
+                </p>
+                
+                <a href="#termos" class="text-indigo-600 hover:text-indigo-800 underline mb-8">
+                    Clique aqui para ler os termos na íntegra.
+                </a>
+
+                <button id="accept-license-btn" class="px-12 py-4 rounded-xl text-lg font-bold bg-gradient-to-r from-green-500 to-teal-400 text-white shadow-xl shadow-green-500/30 hover:shadow-lg transition duration-200 hover:scale-[1.02]">
+                    ✅ Aceitar Termo e Entrar no Dashboard
+                </button>
+            </section>
+            
+         <section id="termos" class="fade-section hidden opacity-0 pointer-events-none p-10 rounded-2xl glass neon-strong text-gray-700">
+    <h2 class="text-2xl font-bold mb-4 text-orange-700">🚨 Termo de USO GRATUITO em Troca de DADOS ABERTOS (Escudo Orofacial)</h2>
+    <p class="text-sm text-red-500 mb-6">**ATENÇÃO!** A utilização da Plataforma Escudo Orofacial sob este modelo é totalmente gratuita. Em contrapartida, todos os dados coletados (incluindo imagens faciais) **serão imediatamente integrados a uma BASE DE DADOS ABERTA (Open Dataset)** de uso livre e irrestrito por qualquer parte no mundo.</p>
+    
+    <div class="h-[600px] overflow-y-auto pr-4 text-sm leading-relaxed bg-white/70 p-4 rounded-lg shadow-inner border border-gray-100">
+        
+        <h3 class="font-semibold text-lg mb-2">1. Modelo de Uso: Contribuição Compulsória para Dados Abertos</h3>
+        <p class="mb-4">O Usuário reconhece que a Plataforma opera exclusivamente sob o princípio do **Open Dataset**. Não existe um modo de uso gratuito que não inclua o compartilhamento dos Dados Compartilháveis na base de dados aberta.</p>
+
+        <h3 class="font-semibold text-lg mb-2 mt-4 text-orange-700">2. Cessão de Dados para Base Aberta Global</h3>
+        <h4 class="font-medium mb-1">2.1. Natureza dos Dados Compartilháveis</h4>
+        <p class="mb-2">Ao inserir dados na Plataforma, o Usuário concorda que todos os **Dados Compartilháveis** (Dados Pessoais, Dados Sensíveis, Imagens Faciais, Análises e Metadados) se tornam propriedade da comunidade científica e tecnológica, e serão integrados à Base de Dados Abertos do Escudo Orofacial.</p>
+        <h4 class="font-medium mb-1 mt-3">2.2. Acesso e Uso Irrestrito por Terceiros</h4>
+        <p class="mb-4">O Escudo Orofacial disponibilizará a Base de Dados Abertos publicamente, e o Usuário reconhece e aceita que:
+        <ul class="list-disc pl-5 mb-4">
+            <li>Qualquer indivíduo, instituição ou empresa (nacional ou internacional) terá **acesso livre, gratuito, perpétuo e irrestrito** para baixar, utilizar, modificar e redistribuir os dados, mesmo para fins comerciais.</li>
+            <li>O Escudo Orofacial **não controla** ou se responsabiliza pela forma como terceiros utilizarão os dados da Base Aberta.</li>
+        </ul>
+
+        <h3 class="font-semibold text-lg mb-2 mt-4">3. Responsabilidade e Consentimento do Paciente</h3>
+        <p class="mb-2">É a **OBRIGAÇÃO INDELEGÁVEL** do Usuário obter o **consentimento mais robusto e explícito possível** do Paciente, informando-o de forma clara e inequívoca que:</p>
+        <ul class="list-disc pl-5 mb-4">
+            <li>Os seus dados de saúde e imagens faciais serão **abertos e disponibilizados publicamente na internet** para uso global (Cláusula 2).</li>
+            <li>Este compartilhamento é a única contrapartida para o uso gratuito da Plataforma pelo Usuário.</li>
+        </ul>
+        <p class="mb-4">O Usuário deve manter o registro deste consentimento e indenizará o Escudo Orofacial por qualquer reivindicação de Pacientes decorrente da falta ou insuficiência deste aviso.</p>
+
+        <h3 class="font-semibold text-lg mb-2 mt-4 text-blue-700">4. Opção de Licença Privada (Para Não Compartilhamento)</h3>
+        <p class="mb-2">Caso o Usuário ou o Paciente não deseje que os dados sejam integrados à Base de Dados Abertos e utilizados por terceiros, a única alternativa é a aquisição de uma **Licença Privada (Paga)**.</p>
+        <p class="mb-4">Somente sob a Licença Privada os dados serão mantidos confidenciais e utilizados apenas para a prestação do serviço contratado, conforme contrato de licença à parte.</p>
+        
+        <p class="mb-4 text-center font-bold text-lg">Para manter a privacidade dos seus dados, entre em contato e adquira a Licença Privada.</p>
+        <p class="mb-4">O uso continuado da Plataforma sem a Licença Privada confirma a aceitação deste Termo de Dados Abertos.</p>
+    </div>
+</section>
+
+            <section id="dashboard" class="fade-section hidden opacity-0 pointer-events-none grid grid-cols-12 gap-6">
+                <h1 class="col-span-12 text-2xl font-bold text-gray-800 mb-4">Bem-vindo(a)! Dashboard Principal</h1>
+                
+                <div class="col-span-12 lg:col-span-8 grid grid-cols-12 gap-6">
+                    <div class="col-span-12 sm:col-span-6 lg:col-span-3">
+                        <div class="p-4 rounded-xl glass neon floaty hover:neon-strong transition duration-300">
+                            <div class="text-xs text-gray-500">Sessões hoje</div>
+                            <div class="mt-2 text-2xl font-bold">128</div>
+                            <div class="mt-2 text-sm text-green-600">+12% vs ontem</div>
+                        </div>
+                    </div>
+                    <div class="col-span-12 sm:col-span-6 lg:col-span-3">
+                        <div class="p-4 rounded-xl glass neon floaty hover:neon-strong transition duration-300">
+                            <div class="text-xs text-gray-500">Imagens coletadas</div>
+                            <div class="mt-2 text-2xl font-bold">1.254</div>
+                            <div class="mt-2 text-sm text-green-600">Automáticas: 82%</div>
+                        </div>
+                    </div>
+                    <div class="col-span-12 sm:col-span-6 lg:col-span-3">
+                        <div class="p-4 rounded-xl glass neon floaty hover:neon-strong transition duration-300">
+                            <div class="text-xs text-gray-500">Analises pendentes</div>
+                            <div class="mt-2 text-2xl font-bold">18</div>
+                            <div class="mt-2 text-sm text-yellow-600">Necessita revisão</div>
+                        </div>
+                    </div>
+                    <div class="col-span-12 sm:col-span-6 lg:col-span-3">
+                        <div class="p-4 rounded-xl glass neon floaty hover:neon-strong transition duration-300">
+                            <div class="text-xs text-gray-500">Tempo médio</div>
+                            <div class="mt-2 text-2xl font-bold">2m 14s</div>
+                            <div class="mt-2 text-sm text-gray-500">por sessão</div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-span-12 lg:col-span-12">
+                        <div class="p-6 rounded-2xl glass neon-strong">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="text-lg font-semibold">Atividade semanal</h3>
+                                    <p class="text-sm text-gray-500">Sessões e capturas automáticas</p>
+                                </div>
+                                <div class="text-sm text-gray-500">Últimos 7 dias</div>
+                            </div>
+                            <div class="mt-4 chart" id="chartArea"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-span-12">
+                        <div class="p-4 rounded-xl glass neon hover:neon-strong transition duration-300">
+                            <div class="flex justify-between items-center mb-3">
+                                <div>
+                                    <h4 class="font-semibold">Capturas recentes</h4>
+                                    <p class="text-sm text-gray-500">Últimas imagens salvas</p>
+                                </div>
+                                <div class="text-sm text-gray-500">Atualizado agora</div>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full text-left text-sm">
+                                    <thead class="text-gray-500">
+                                        <tr>
+                                            <th class="px-3 py-2">Paciente</th>
+                                            <th class="px-3 py-2">Tipo</th>
+                                            <th class="px-3 py-2">Data/Hora</th>
+                                            <th class="px-3 py-2">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-gray-700">
+                                        <tr class="border-t"><td class="px-3 py-2">Maria C.</td><td class="px-3 py-2">Frontal</td><td class="px-3 py-2">2025-11-25 09:12</td><td class="px-3 py-2">OK</td></tr>
+                                        <tr class="border-t"><td class="px-3 py-2">João P.</td><td class="px-3 py-2">Perfil</td><td class="px-3 py-2">2025-11-25 08:57</td><td class="px-3 py-2">Revisar</td></tr>
+                                        <tr class="border-t"><td class="px-3 py-2">Ana R.</td><td class="px-3 py-2">Sorriso</td><td class="px-3 py-2">2025-11-24 17:20</td><td class="px-3 py-2">OK</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <aside class="col-span-12 lg:col-span-4">
+                    <div class="p-4 rounded-xl glass neon mb-6 hover:neon-strong transition duration-300">
+                        <h4 class="font-semibold">Status do dispositivo</h4>
+                        <div class="mt-3 flex items-center gap-3">
+                            <div class="w-3 h-3 bg-green-400 rounded-full"></div>
+                            <div class="text-sm text-gray-600">Câmera 1 — Online</div>
+                        </div>
+                        <div class="mt-4 text-sm text-gray-500">CPU 28% • Mem 1.8GB</div>
+                        <div class="mt-4 grid grid-cols-2 gap-3">
+                            <div class="p-3 rounded-lg bg-white/60 text-sm">FPS: 29</div>
+                            <div class="p-3 rounded-lg bg-white/60 text-sm">Temp: 42°C</div>
+                        </div>
+                    </div>
+
+                    <div class="p-4 rounded-xl glass neon mb-6 hover:neon-strong transition duration-300">
+                        <h4 class="font-semibold">Ações rápidas</h4>
+                        <div class="mt-3 flex flex-col gap-3">
+                            <button class="py-2 rounded-lg bg-indigo-600 text-white shadow-md hover:bg-indigo-700 transition duration-150">Iniciar coleta</button>
+                            <button class="py-2 rounded-lg bg-white/80 border hover:bg-gray-50 transition duration-150">Parar coleta</button>
+                            <button class="py-2 rounded-lg bg-white/80 border hover:bg-gray-50 transition duration-150">Exportar CSV</button>
+                        </div>
+                    </div>
+
+                    <div class="p-4 rounded-xl glass neon hover:neon-strong transition duration-300">
+                        <h4 class="font-semibold">Indicadores ambientais</h4>
+                        <div class="mt-3 text-sm text-gray-500">Economia estimada: <strong>480 kWh/ano</strong></div>
+                        <div class="mt-2 text-sm text-gray-500">E‑Waste evitado: <strong>90 kg/ano</strong></div>
+                    </div>
+                </aside>
+            </section>
+            
+            <section id="coleta-automatica" class="fade-section hidden opacity-0 pointer-events-none p-6 rounded-2xl glass neon">
+                <h2 class="text-xl font-semibold mb-4">🤖 Coleta Automática</h2>
+                <p class="text-sm text-gray-600 mb-6">Monitoramento contínuo dos dispositivos, captura automática baseada em alinhamento facial e organização instantânea no prontuário.</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="p-4 rounded-xl glass neon hover:neon-strong transition duration-300">Status da câmera</div>
+                    <div class="p-4 rounded-xl glass neon hover:neon-strong transition duration-300">Fluxo de reconhecimento</div>
+                    <div class="p-4 rounded-xl glass neon hover:neon-strong transition duration-300">Histórico automático</div>
+                    <div class="p-4 rounded-xl glass neon hover:neon-strong transition duration-300">Sensores conectados</div>
+                </div>
+            </section>
+
+            <section id="coleta-imagens" class="fade-section hidden opacity-0 pointer-events-none p-6 mt-4 rounded-2xl glass neon">
+                <h2 class="text-xl font-semibold mb-4">📸 Coleta de Imagens</h2>
+                <p class="text-sm text-gray-600 mb-6">Módulo dedicado para captura extraoral, alinhamento automático, expressões faciais e padronização clínica.</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <div class="p-4 rounded-xl glass neon hover:neon-strong transition duration-300">Frontal — Neutra</div>
+                    <div class="p-4 rounded-xl glass neon hover:neon-strong transition duration-300">Perfil Direito</div>
+                    <div class="p-4 rounded-xl glass neon hover:neon-strong transition duration-300">Perfil Esquerdo</div>
+                    <div class="p-4 rounded-xl glass neon hover:neon-strong transition duration-300">Expressão Sorriso</div>
+                    <div class="p-4 rounded-xl glass neon hover:neon-strong transition duration-300">Expressão Boca Relaxada</div>
+                    <div class="p-4 rounded-xl glass neon hover:neon-strong transition duration-300">Expressão Surprise</div>
+                </div>
+            </section>
+
+            <section id="prontuarios" class="fade-section hidden opacity-0 pointer-events-none p-6 mt-4 rounded-2xl glass neon">
+                <h2 class="text-xl font-semibold mb-4">📁 Prontuários</h2>
+                <p class="text-sm text-gray-600 mb-4">Organização de documentos clínicos, sequências fotográficas e histórico facial de cada paciente.</p>
+
+                <div class="p-4 rounded-xl bg-white shadow hover:shadow-lg transition duration-300">
+                    <p class="text-gray-500">Nenhum prontuário selecionado.</p>
+                </div>
+            </section>
+
+            <section id="configuracoes" class="fade-section hidden opacity-0 pointer-events-none p-6 mt-4 rounded-2xl glass neon">
+                <h2 class="text-xl font-semibold mb-4">⚙️ Configurações</h2>
+                <p class="text-sm text-gray-600 mb-4">Ajuste parâmetros do sistema, câmeras, coletas e identidade visual aplicada.</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="p-4 rounded-xl glass neon hover:neon-strong transition duration-300">Configurações de câmera</div>
+                    <div class="p-4 rounded-xl glass neon hover:neon-strong transition duration-300">Integrações</div>
+                    <div class="p-4 rounded-xl glass neon hover:neon-strong transition duration-300">Preferências do usuário</div>
+                    <div class="p-4 rounded-xl glass neon hover:neon-strong transition duration-300">Segurança e acesso</div>
+                </div>
+            </section>
+
+            <section id="identidade-visual" class="fade-section hidden opacity-0 pointer-events-none p-10 rounded-2xl glass neon-strong">
+                <h2 class="text-2xl font-bold mb-4 text-indigo-700">🎨 Guia de Identidade Visual — Escudo Orofacial</h2>
+                <p class="text-sm text-gray-600 mb-6">
+                    Esta seção consolida toda a linguagem visual do projeto Escudo Orofacial. Inclui paleta oficial, gradientes, tokens de UI e componentes.
+                </p>
+                <div class="grid grid-cols-2 gap-4">
+                     <div class="p-4 rounded-lg bg-indigo-600 text-white">Cor Primária: Indigo-600</div>
+                     <div class="p-4 rounded-lg bg-cyan-400 text-white">Cor Secundária: Cyan-400</div>
+                </div>
+            </section>
+
+
+            <footer class="mt-8 text-sm text-gray-500">© 2025 Escudo Orofacial • Parcerias: IGEos • Fundação BB • UFPEL • UFR • UNEMAT</footer>
+        </main>
+    </div>
+
+    <script>
+        // Simple area-chart mock using SVG (mantido por consistência)
+        (function(){
+            const chart = document.getElementById('chartArea');
+            if (!chart) return; 
+
+            const svgNS = 'http://www.w3.org/2000/svg';
+            const svg = document.createElementNS(svgNS,'svg');
+            svg.setAttribute('viewBox','0 0 600 120');
+            svg.setAttribute('width','100%'); svg.setAttribute('height','120');
+            const path = document.createElementNS(svgNS,'path');
+            const d = 'M0,80 C80,20 160,40 240,30 C320,10 400,40 480,20 C560,5 600,10 600,80 L600 120 L0 120 Z';
+            path.setAttribute('d',d);
+            path.setAttribute('fill','url(#g)');
+            const defs = document.createElementNS(svgNS,'defs');
+            const lin = document.createElementNS(svgNS,'linearGradient'); lin.setAttribute('id','g'); lin.setAttribute('x1','0'); lin.setAttribute('x2','1');
+            const s1 = document.createElementNS(svgNS,'stop'); s1.setAttribute('offset','0%'); s1.setAttribute('stop-color','#4338CA'); s1.setAttribute('stop-opacity','0.45');
+            const s2 = document.createElementNS(svgNS,'stop'); s2.setAttribute('offset','100%'); s2.setAttribute('stop-color','#1E73BE'); s2.setAttribute('stop-opacity','0.05');
+            lin.appendChild(s1); lin.appendChild(s2); defs.appendChild(lin); svg.appendChild(defs); svg.appendChild(path);
+            chart.appendChild(svg);
+        })();
+    </script>
+</body>
+</html>
