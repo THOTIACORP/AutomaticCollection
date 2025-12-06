@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Escudo Orofacial — Dashboard Futurista (Corrigido)</title>
+    <title>Escudo Orofacial — Dashboard Futurista (Mobile Aprimorado)</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -17,25 +17,50 @@
                 prontuarios: document.getElementById('prontuarios'),
                 configuracoes: document.getElementById('configuracoes'),
                 'identidade-visual': document.getElementById('identidade-visual'),
-                termos: document.getElementById('termos') // ID Corrigido
+                termos: document.getElementById('termos')
             };
 
             const links = document.querySelectorAll('aside nav a, aside div a, a[href="#termos"]');
             
             const acceptContainer = document.getElementById('license-accept-container');
             const acceptButton = document.getElementById('accept-license-btn');
-
+            const mobileMenuButton = document.getElementById('mobile-menu-btn'); // Novo botão
+            const sidebar = document.getElementById('sidebar'); // Sidebar
+            
             let licenseAccepted = false; // Estado inicial: Licença Não Aceita
+
+            // --- Funções de Responsividade ---
+            
+            // Função para fechar o menu lateral no mobile
+            function closeMobileMenu() {
+                sidebar.classList.add('hidden', 'lg:flex');
+            }
+
+            // Toggle para o menu lateral no mobile
+            mobileMenuButton.addEventListener('click', () => {
+                // Adiciona e remove as classes de visibilidade no mobile (somente se a tela for pequena)
+                if (window.innerWidth < 1024) { // Menor que lg
+                     sidebar.classList.toggle('hidden');
+                }
+            });
+
+            // Adicionar funcionalidade de fechar menu ao clicar em um link (mobile)
+            links.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth < 1024) {
+                        closeMobileMenu();
+                    }
+                });
+            });
+
 
             // Função para gerenciar a visibilidade do Dashboard vs. Botão de Aceite
             function updateDashboardVisibility() {
                 if (licenseAccepted) {
                     acceptContainer.classList.add('hidden');
-                    // Não forçamos o dashboard a aparecer aqui, apenas removemos a trava.
                 } else {
-                    // Se não aceitou, e tentou ir para o dashboard, mostramos a tela de aceite
                     if (sections.dashboard.classList.contains('opacity-100')) {
-                         sections.dashboard.classList.add('hidden', 'opacity-0');
+                          sections.dashboard.classList.add('hidden', 'opacity-0');
                     }
                     acceptContainer.classList.remove('hidden');
                 }
@@ -71,7 +96,6 @@
                     if (!sec.classList.contains('hidden')) {
                         sec.addEventListener('transitionend', hideAfterTransition);
                     } else {
-                         // Se já estava hidden, remove imediatamente a classe 'hidden' para o target funcionar.
                          if (sec === target) sec.classList.remove('hidden');
                     }
                 });
@@ -118,13 +142,12 @@
 
             // Inicia a aplicação mostrando a tela de bloqueio (se a licença não estiver aceita)
             updateDashboardVisibility();
-            // Se o dashboard é o default, a função updateDashboardVisibility() o esconderá e mostrará o AcceptContainer
             showTab('dashboard'); 
         });
     </script>
 
     <style>
-        /* CSS Geral e Fontes (Mantido) */
+        /* Estilos CSS mantidos... */
         @font-face {
             font-family: 'Garet';
             src: url('https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/Garet-Book.ttf');
@@ -180,17 +203,32 @@
 
         /* Fade transitions com duração padronizada */
         .fade-section{transition:opacity .25s ease;} 
+        
+        /* NOVO CSS: Overlay para o menu mobile */
+        /* Garante que o menu ocupe a tela inteira quando aberto no mobile */
+        @media (max-width: 1023px) {
+            #sidebar:not(.hidden) {
+                position: fixed;
+                inset: 0;
+                width: 100%;
+                z-index: 50; /* Z-index alto para sobrepor o conteúdo */
+                background: white; /* Fundo branco ou fosco para melhor visibilidade */
+            }
+        }
     </style>
 </head>
 <body class="bg-white bg-tech">
-    <div class="min-h-screen flex">
-        <aside class="w-72 p-6 border-r border-gray-100/60">
+    <div class="min-h-screen flex lg:flex-row flex-col">
+        <aside id="sidebar" class="w-full lg:w-72 p-6 border-r border-gray-100/60 hidden lg:flex flex-col">
             <div class="flex items-center gap-3 mb-8">
                 <img src="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/logoEscudo.png" class="w-12 h-12 p-1 bg-white rounded-lg neon" alt="Logo" />
                 <div>
                     <div class="text-lg font-semibold text-gray-900">Escudo Orofacial</div>
                     <div class="text-xs text-gray-500">Painel de Controle</div>
                 </div>
+                <button onclick="document.getElementById('sidebar').classList.add('hidden')" class="absolute top-4 right-4 lg:hidden text-gray-500 hover:text-gray-900">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
             </div>
 
             <nav class="space-y-1 text-sm">
@@ -226,13 +264,18 @@
                 </div>
             </div>
 
-            <div class="mt-8 text-xs text-gray-400">v1.0 • © Eng. Orofacial</div>
+            <div class="mt-auto pt-8 text-xs text-gray-400">v1.0 • © Eng. Orofacial</div>
         </aside>
 
-        <main class="flex-1 p-8">
+        <main class="flex-1 p-4 lg:p-8">
             <header class="flex items-center justify-between mb-6">
-                <div class="flex items-center gap-6">
-                    <div class="rounded-lg grad-border p-0.5">
+                
+                <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg hover:bg-gray-50 text-gray-700">
+                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+                
+                <div class="flex items-center gap-3 lg:gap-6">
+                    <div class="rounded-lg grad-border p-0.5 hidden sm:block"> 
                         <button class="flex items-center gap-3 bg-white/90 py-2 px-3 rounded-lg shadow-sm">
                             <svg class="w-5 h-5 text-indigo-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12h18" stroke-linecap="round" stroke-linejoin="round"></path></svg>
                             <span class="text-sm font-semibold">Projetos</span>
@@ -241,19 +284,19 @@
                     <div class="text-sm text-gray-600">Dashboard / Estatísticas</div>
                 </div>
 
-                <div class="flex items-center gap-4">
-                    <div class="relative">
-                        <input class="border border-gray-200 rounded-full px-4 py-2 text-sm" placeholder="Buscar..." />
+                <div class="flex items-center gap-2 lg:gap-4">
+                    <div class="relative hidden sm:block"> 
+                        <input class="border border-gray-200 rounded-full px-4 py-2 text-sm w-24 sm:w-auto" placeholder="Buscar..." />
                         <div class="absolute right-3 top-2 text-gray-400">⌕</div>
                     </div>
-                    <button class="px-4 py-2 rounded-lg bg-gradient-to-r from-indigo-600 to-cyan-400 text-white shadow-md hover:opacity-95">Novo</button>
-                    <img src="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/logoEscudo.png" class="w-10 h-10 rounded-md border border-gray-100"/>
+                    <button class="px-3 py-2 lg:px-4 lg:py-2 rounded-lg bg-gradient-to-r from-indigo-600 to-cyan-400 text-white shadow-md hover:opacity-95 text-sm">Novo</button>
+                    <img src="https://raw.githubusercontent.com/THOTIACORP/AnaliseFacial_Front/main/logoEscudo.png" class="w-8 h-8 lg:w-10 lg:h-10 rounded-md border border-gray-100"/>
                 </div>
             </header>
 
-            <section id="license-accept-container" class="fade-section flex flex-col items-center justify-center min-h-[500px] p-10 rounded-2xl glass neon-strong">
-                <h2 class="text-3xl font-bold mb-4 text-indigo-700">🔒 Acesso Bloqueado</h2>
-                <p class="text-lg text-gray-600 mb-8 max-w-2xl text-center">
+            <section id="license-accept-container" class="fade-section flex flex-col items-center justify-center min-h-[500px] p-4 lg:p-10 rounded-2xl glass neon-strong">
+                <h2 class="text-2xl lg:text-3xl font-bold mb-4 text-indigo-700 text-center">🔒 Acesso Bloqueado</h2>
+                <p class="text-base lg:text-lg text-gray-600 mb-8 max-w-2xl text-center">
                     Para prosseguir e acessar o Painel de Controle, você deve aceitar os **Termos de Uso e Compartilhamento de Dados**.
                 </p>
                 
@@ -261,94 +304,95 @@
                     Clique aqui para ler os termos na íntegra.
                 </a>
 
-                <button id="accept-license-btn" class="px-12 py-4 rounded-xl text-lg font-bold bg-gradient-to-r from-green-500 to-teal-400 text-white shadow-xl shadow-green-500/30 hover:shadow-lg transition duration-200 hover:scale-[1.02]">
+                <button id="accept-license-btn" class="px-6 py-3 lg:px-12 lg:py-4 rounded-xl text-base lg:text-lg font-bold bg-gradient-to-r from-green-500 to-teal-400 text-white shadow-xl shadow-green-500/30 hover:shadow-lg transition duration-200 hover:scale-[1.02]">
                     ✅ Aceitar Termo e Entrar no Dashboard
                 </button>
             </section>
-     <section id="termos" class="fade-section hidden opacity-0 pointer-events-none p-10 rounded-2xl glass neon-strong text-gray-700">
-    <h2 class="text-2xl font-bold mb-4 text-indigo-700">📄 Termos de Uso e Política de Dados (Escudo Orofacial)</h2>
-    <p class="text-sm text-gray-500 mb-6">Estes Termos descrevem o funcionamento dos nossos Serviços e o acordo legal entre o Usuário (profissional de saúde) e o Escudo Orofacial. Por favor, leia-os com atenção.</p>
-    
-    <div class="h-[600px] overflow-y-auto pr-4 text-sm leading-relaxed bg-white/70 p-4 rounded-lg shadow-inner border border-gray-100">
-        
-        <h3 class="font-semibold text-lg mb-2">1. Aceitação e Escopo dos Termos</h3>
-        <p class="mb-4">Ao acessar ou utilizar a Plataforma Escudo Orofacial, o Usuário concorda integralmente com estes Termos. Estes Termos aplicam-se a todos os dados, conteúdos e funcionalidades disponibilizados na Plataforma.</p>
+            
+            <section id="termos" class="fade-section hidden opacity-0 pointer-events-none p-4 lg:p-10 rounded-2xl glass neon-strong text-gray-700">
+                <h2 class="text-xl lg:text-2xl font-bold mb-4 text-indigo-700">📄 Termos de Uso e Política de Dados (Escudo Orofacial)</h2>
+                <p class="text-xs lg:text-sm text-gray-500 mb-6">Estes Termos descrevem o funcionamento dos nossos Serviços e o acordo legal entre o Usuário (profissional de saúde) e o Escudo Orofacial. Por favor, leia-os com atenção.</p>
+                
+                <div class="h-[600px] overflow-y-auto pr-4 text-sm leading-relaxed bg-white/70 p-4 rounded-lg shadow-inner border border-gray-100">
+                    <h3 class="font-semibold text-lg mb-2">1. Aceitação e Escopo dos Termos</h3>
+                    <p class="mb-4">Ao acessar ou utilizar a Plataforma Escudo Orofacial, o Usuário concorda integralmente com estes Termos. Estes Termos aplicam-se a todos os dados, conteúdos e funcionalidades disponibilizados na Plataforma.</p>
 
-        <h3 class="font-semibold text-lg mb-2 mt-4">2. O Modelo de Serviço: Uso Gratuito vs. Licença Privada</h3>
-        <p class="mb-2">O Escudo Orofacial é fornecido em duas modalidades:</p>
-        <ul class="list-disc pl-5 mb-4">
-            <li>**Acesso Padrão (Gratuito):** Fornecido em troca do direito de o Escudo Orofacial utilizar, processar e compartilhar os Dados Compartilháveis para as finalidades de **Melhoria e Desenvolvimento** (Cláusula 4).</li>
-            <li>**Licença Privada (Paga):** Mediante contrato de licença e pagamento de taxa, o tratamento dos dados é limitado à **Prestação do Serviço** e ao cumprimento legal, sem uso para aprimoramento de IA/Pesquisa ou compartilhamento externo.</li>
-        </ul>
+                    <h3 class="font-semibold text-lg mb-2 mt-4">2. O Modelo de Serviço: Uso Gratuito vs. Licença Privada</h3>
+                    <p class="mb-2">O Escudo Orofacial é fornecido em duas modalidades:</p>
+                    <ul class="list-disc pl-5 mb-4">
+                        <li>**Acesso Padrão (Gratuito):** Fornecido em troca do direito de o Escudo Orofacial utilizar, processar e compartilhar os Dados Compartilháveis para as finalidades de **Melhoria e Desenvolvimento** (Cláusula 4).</li>
+                        <li>**Licença Privada (Paga):** Mediante contrato de licença e pagamento de taxa, o tratamento dos dados é limitado à **Prestação do Serviço** e ao cumprimento legal, sem uso para aprimoramento de IA/Pesquisa ou compartilhamento externo.</li>
+                    </ul>
 
-        <h3 class="font-semibold text-lg mb-2 mt-4">3. Responsabilidades do Usuário (Controlador de Dados)</h3>
-        <p class="mb-2">O Usuário é o único **Controlador** dos dados de seus Pacientes. É obrigação legal do Usuário, independentemente da modalidade de acesso (Gratuita ou Paga), obter o **Consentimento Livre, Informado e Inequívoco** do Paciente para a coleta e o tratamento de seus Dados Pessoais e **Dados Sensíveis** (incluindo imagens faciais e informações de saúde) na Plataforma.</p>
-        <p class="mb-4">O consentimento obtido pelo Usuário deve ser compatível com a modalidade de acesso escolhida (compartilhamento irrestrito na opção Gratuita ou apenas para prestação de serviço na opção Paga).</p>
+                    <h3 class="font-semibold text-lg mb-2 mt-4">3. Responsabilidades do Usuário (Controlador de Dados)</h3>
+                    <p class="mb-2">O Usuário é o único **Controlador** dos dados de seus Pacientes. É obrigação legal do Usuário, independentemente da modalidade de acesso (Gratuita ou Paga), obter o **Consentimento Livre, Informado e Inequívoco** do Paciente para a coleta e o tratamento de seus Dados Pessoais e **Dados Sensíveis** (incluindo imagens faciais e informações de saúde) na Plataforma.</p>
+                    <p class="mb-4">O consentimento obtido pelo Usuário deve ser compatível com a modalidade de acesso escolhida (compartilhamento irrestrito na opção Gratuita ou apenas para prestação de serviço na opção Paga).</p>
 
-        <h3 class="font-semibold text-lg mb-2 mt-4 text-indigo-700">4. Tratamento e Uso de Dados no Acesso Padrão (Gratuito)</h3>
-        <p class="mb-2">Para Usuários que optam pelo Acesso Padrão, o Escudo Orofacial está autorizado a usar os Dados Compartilháveis (incluindo Dados Pessoais e Sensíveis) para as seguintes finalidades, que o Usuário e o Paciente aceitam em troca do uso gratuito:</p>
-        <ul class="list-disc pl-5 mb-4">
-            <li>**Prestação e Manutenção do Serviço:** Para permitir o funcionamento das ferramentas de análise e prontuário.</li>
-            <li>**Melhoria de Serviços e Desenvolvimento de IA:** Utilizar os dados para treinar, aprimorar e desenvolver novos modelos de Inteligência Artificial e novos produtos da Plataforma, de forma contínua e global.</li>
-            <li>**Compartilhamento com Afiliadas e Parceiros de Confiança:** Compartilhamos dados, quando necessário, com empresas afiliadas, subcontratados e parceiros de pesquisa de confiança, para que os processem em nosso nome, seguindo nossas instruções e medidas de confidencialidade e segurança adequadas.</li>
-            <li>**Pesquisa e Divulgação:** Podemos utilizar os dados em formatos **pseudonimizados** ou **agregados** para publicações científicas, estudos de mercado e demonstrações.</li>
-        </ul>
-        <p class="mb-4 font-medium text-red-600">Ao usar a modalidade Gratuita, o Usuário concede ao Escudo Orofacial uma licença global, livre de royalties e perpétua para o uso dos dados para as finalidades descritas nesta Cláusula 4.</p>
+                    <h3 class="font-semibold text-lg mb-2 mt-4 text-indigo-700">4. Tratamento e Uso de Dados no Acesso Padrão (Gratuito)</h3>
+                    <p class="mb-2">Para Usuários que optam pelo Acesso Padrão, o Escudo Orofacial está autorizado a usar os Dados Compartilháveis (incluindo Dados Pessoais e Sensíveis) para as seguintes finalidades, que o Usuário e o Paciente aceitam em troca do uso gratuito:</p>
+                    <ul class="list-disc pl-5 mb-4">
+                        <li>**Prestação e Manutenção do Serviço:** Para permitir o funcionamento das ferramentas de análise e prontuário.</li>
+                        <li>**Melhoria de Serviços e Desenvolvimento de IA:** Utilizar os dados para treinar, aprimorar e desenvolver novos modelos de Inteligência Artificial e novos produtos da Plataforma, de forma contínua e global.</li>
+                        <li>**Compartilhamento com Afiliadas e Parceiros de Confiança:** Compartilhamos dados, quando necessário, com empresas afiliadas, subcontratados e parceiros de pesquisa de confiança, para que os processem em nosso nome, seguindo nossas instruções e medidas de confidencialidade e segurança adequadas.</li>
+                        <li>**Pesquisa e Divulgação:** Podemos utilizar os dados em formatos **pseudonimizados** ou **agregados** para publicações científicas, estudos de mercado e demonstrações.</li>
+                    </ul>
+                    <p class="mb-4 font-medium text-red-600">Ao usar a modalidade Gratuita, o Usuário concede ao Escudo Orofacial uma licença global, livre de royalties e perpétua para o uso dos dados para as finalidades descritas nesta Cláusula 4.</p>
 
-        <h3 class="font-semibold text-lg mb-2 mt-4 text-blue-700">5. Privacidade Total na Licença Privada (Opção Paga)</h3>
-        <p class="mb-4">Usuários com Licença Privada garantem que seus Dados Compartilháveis **NÃO** serão usados para as finalidades de Melhoria de Serviços, Desenvolvimento de IA ou Pesquisa e **NÃO** serão compartilhados com terceiros (exceto quando estritamente necessário para o suporte técnico do serviço ou por ordem legal).</p>
+                    <h3 class="font-semibold text-lg mb-2 mt-4 text-blue-700">5. Privacidade Total na Licença Privada (Opção Paga)</h3>
+                    <p class="mb-4">Usuários com Licença Privada garantem que seus Dados Compartilháveis **NÃO** serão usados para as finalidades de Melhoria de Serviços, Desenvolvimento de IA ou Pesquisa e **NÃO** serão compartilhados com terceiros (exceto quando estritamente necessário para o suporte técnico do serviço ou por ordem legal).</p>
 
-        <h3 class="font-semibold text-lg mb-2 mt-4">6. Segurança e Retenção</h3>
-        <p class="mb-2">O Escudo Orofacial emprega medidas de segurança técnicas e organizacionais para proteger os dados. No entanto, nenhum sistema é totalmente invulnerável. O Usuário deve zelar pela segurança de suas credenciais de acesso.</p>
-        <p class="mb-4">Os dados serão retidos pelo período necessário para fornecer o serviço e cumprir as finalidades descritas neste Termo, e por períodos exigidos legalmente (Cláusula 4, se aplicável).</p>
+                    <h3 class="font-semibold text-lg mb-2 mt-4">6. Segurança e Retenção</h3>
+                    <p class="mb-2">O Escudo Orofacial emprega medidas de segurança técnicas e organizacionais para proteger os dados. No entanto, nenhum sistema é totalmente invulnerável. O Usuário deve zelar pela segurança de suas credenciais de acesso.</p>
+                    <p class="mb-4">Os dados serão retidos pelo período necessário para fornecer o serviço e cumprir as finalidades descritas neste Termo, e por períodos exigidos legalmente (Cláusula 4, se aplicável).</p>
 
-        <h3 class="font-semibold text-lg mb-2 mt-4">7. Disposições Finais</h3>
-        <p class="mb-2">Reservamo-nos o direito de modificar estes Termos a qualquer momento. Em caso de alterações substanciais, notificaremos o Usuário com antecedência. O uso continuado da Plataforma após a notificação constitui aceitação dos novos Termos.</p>
-        <p class="mb-4 text-center font-bold text-lg">Para contratar a Licença Privada e proteger a privacidade total dos seus dados, entre em contato conosco.</p>
-    </div>
-</section>
+                    <h3 class="font-semibold text-lg mb-2 mt-4">7. Disposições Finais</h3>
+                    <p class="mb-2">Reservamo-nos o direito de modificar estes Termos a qualquer momento. Em caso de alterações substanciais, notificaremos o Usuário com antecedência. O uso continuado da Plataforma após a notificação constitui aceitação dos novos Termos.</p>
+                    <p class="mb-4 text-center font-bold text-lg">Para contratar a Licença Privada e proteger a privacidade total dos seus dados, entre em contato conosco.</p>
+                </div>
+            </section>
 
             <section id="dashboard" class="fade-section hidden opacity-0 pointer-events-none grid grid-cols-12 gap-6">
-                <h1 class="col-span-12 text-2xl font-bold text-gray-800 mb-4">Bem-vindo(a)! Dashboard Principal</h1>
+                <h1 class="col-span-12 text-xl lg:text-2xl font-bold text-gray-800 mb-4">Bem-vindo(a)! Dashboard Principal</h1>
                 
                 <div class="col-span-12 lg:col-span-8 grid grid-cols-12 gap-6">
-                    <div class="col-span-12 sm:col-span-6 lg:col-span-3">
+                    
+                    <div class="col-span-6 sm:col-span-6 lg:col-span-3">
                         <div class="p-4 rounded-xl glass neon floaty hover:neon-strong transition duration-300">
                             <div class="text-xs text-gray-500">Sessões hoje</div>
-                            <div class="mt-2 text-2xl font-bold">128</div>
-                            <div class="mt-2 text-sm text-green-600">+12% vs ontem</div>
+                            <div class="mt-2 text-xl lg:text-2xl font-bold">128</div>
+                            <div class="mt-2 text-xs lg:text-sm text-green-600">+12% vs ontem</div>
                         </div>
                     </div>
-                    <div class="col-span-12 sm:col-span-6 lg:col-span-3">
+                    <div class="col-span-6 sm:col-span-6 lg:col-span-3">
                         <div class="p-4 rounded-xl glass neon floaty hover:neon-strong transition duration-300">
                             <div class="text-xs text-gray-500">Imagens coletadas</div>
-                            <div class="mt-2 text-2xl font-bold">1.254</div>
-                            <div class="mt-2 text-sm text-green-600">Automáticas: 82%</div>
+                            <div class="mt-2 text-xl lg:text-2xl font-bold">1.254</div>
+                            <div class="mt-2 text-xs lg:text-sm text-green-600">Automáticas: 82%</div>
                         </div>
                     </div>
-                    <div class="col-span-12 sm:col-span-6 lg:col-span-3">
+                    <div class="col-span-6 sm:col-span-6 lg:col-span-3">
                         <div class="p-4 rounded-xl glass neon floaty hover:neon-strong transition duration-300">
                             <div class="text-xs text-gray-500">Analises pendentes</div>
-                            <div class="mt-2 text-2xl font-bold">18</div>
-                            <div class="mt-2 text-sm text-yellow-600">Necessita revisão</div>
+                            <div class="mt-2 text-xl lg:text-2xl font-bold">18</div>
+                            <div class="mt-2 text-xs lg:text-sm text-yellow-600">Necessita revisão</div>
                         </div>
                     </div>
-                    <div class="col-span-12 sm:col-span-6 lg:col-span-3">
+                    <div class="col-span-6 sm:col-span-6 lg:col-span-3">
                         <div class="p-4 rounded-xl glass neon floaty hover:neon-strong transition duration-300">
                             <div class="text-xs text-gray-500">Tempo médio</div>
-                            <div class="mt-2 text-2xl font-bold">2m 14s</div>
-                            <div class="mt-2 text-sm text-gray-500">por sessão</div>
+                            <div class="mt-2 text-xl lg:text-2xl font-bold">2m 14s</div>
+                            <div class="mt-2 text-xs lg:text-sm text-gray-500">por sessão</div>
                         </div>
                     </div>
                     
-                    <div class="col-span-12 lg:col-span-12">
-                        <div class="p-6 rounded-2xl glass neon-strong">
+                    <div class="col-span-12">
+                        <div class="p-4 lg:p-6 rounded-2xl glass neon-strong">
                             <div class="flex justify-between items-start">
                                 <div>
-                                    <h3 class="text-lg font-semibold">Atividade semanal</h3>
-                                    <p class="text-sm text-gray-500">Sessões e capturas automáticas</p>
+                                    <h3 class="text-base lg:text-lg font-semibold">Atividade semanal</h3>
+                                    <p class="text-xs lg:text-sm text-gray-500">Sessões e capturas automáticas</p>
                                 </div>
-                                <div class="text-sm text-gray-500">Últimos 7 dias</div>
+                                <div class="text-xs lg:text-sm text-gray-500">Últimos 7 dias</div>
                             </div>
                             <div class="mt-4 chart" id="chartArea"></div>
                         </div>
@@ -359,12 +403,12 @@
                             <div class="flex justify-between items-center mb-3">
                                 <div>
                                     <h4 class="font-semibold">Capturas recentes</h4>
-                                    <p class="text-sm text-gray-500">Últimas imagens salvas</p>
+                                    <p class="text-xs lg:text-sm text-gray-500">Últimas imagens salvas</p>
                                 </div>
-                                <div class="text-sm text-gray-500">Atualizado agora</div>
+                                <div class="text-xs lg:text-sm text-gray-500">Atualizado agora</div>
                             </div>
                             <div class="overflow-x-auto">
-                                <table class="min-w-full text-left text-sm">
+                                <table class="min-w-full text-left text-xs lg:text-sm">
                                     <thead class="text-gray-500">
                                         <tr>
                                             <th class="px-3 py-2">Paciente</th>
@@ -414,10 +458,10 @@
                     </div>
                 </aside>
             </section>
-            
-            <section id="coleta-automatica" class="fade-section hidden opacity-0 pointer-events-none p-6 rounded-2xl glass neon">
+
+            <section id="coleta-automatica" class="fade-section hidden opacity-0 pointer-events-none p-4 lg:p-6 rounded-2xl glass neon">
                 <h2 class="text-xl font-semibold mb-4">🤖 Coleta Automática</h2>
-                <p class="text-sm text-gray-600 mb-6">Monitoramento contínuo dos dispositivos, captura automática baseada em alinhamento facial e organização instantânea no prontuário.</p>
+                <p class="text-xs lg:text-sm text-gray-600 mb-6">Monitoramento contínuo dos dispositivos, captura automática baseada em alinhamento facial e organização instantânea no prontuário.</p>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div class="p-4 rounded-xl glass neon hover:neon-strong transition duration-300">Status da câmera</div>
@@ -427,11 +471,11 @@
                 </div>
             </section>
 
-            <section id="coleta-imagens" class="fade-section hidden opacity-0 pointer-events-none p-6 mt-4 rounded-2xl glass neon">
+            <section id="coleta-imagens" class="fade-section hidden opacity-0 pointer-events-none p-4 lg:p-6 mt-4 rounded-2xl glass neon">
                 <h2 class="text-xl font-semibold mb-4">📸 Coleta de Imagens</h2>
-                <p class="text-sm text-gray-600 mb-6">Módulo dedicado para captura extraoral, alinhamento automático, expressões faciais e padronização clínica.</p>
+                <p class="text-xs lg:text-sm text-gray-600 mb-6">Módulo dedicado para captura extraoral, alinhamento automático, expressões faciais e padronização clínica.</p>
 
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
                     <div class="p-4 rounded-xl glass neon hover:neon-strong transition duration-300">Frontal — Neutra</div>
                     <div class="p-4 rounded-xl glass neon hover:neon-strong transition duration-300">Perfil Direito</div>
                     <div class="p-4 rounded-xl glass neon hover:neon-strong transition duration-300">Perfil Esquerdo</div>
@@ -441,18 +485,18 @@
                 </div>
             </section>
 
-            <section id="prontuarios" class="fade-section hidden opacity-0 pointer-events-none p-6 mt-4 rounded-2xl glass neon">
+            <section id="prontuarios" class="fade-section hidden opacity-0 pointer-events-none p-4 lg:p-6 mt-4 rounded-2xl glass neon">
                 <h2 class="text-xl font-semibold mb-4">📁 Prontuários</h2>
-                <p class="text-sm text-gray-600 mb-4">Organização de documentos clínicos, sequências fotográficas e histórico facial de cada paciente.</p>
+                <p class="text-xs lg:text-sm text-gray-600 mb-4">Organização de documentos clínicos, sequências fotográficas e histórico facial de cada paciente.</p>
 
                 <div class="p-4 rounded-xl bg-white shadow hover:shadow-lg transition duration-300">
                     <p class="text-gray-500">Nenhum prontuário selecionado.</p>
                 </div>
             </section>
 
-            <section id="configuracoes" class="fade-section hidden opacity-0 pointer-events-none p-6 mt-4 rounded-2xl glass neon">
+            <section id="configuracoes" class="fade-section hidden opacity-0 pointer-events-none p-4 lg:p-6 mt-4 rounded-2xl glass neon">
                 <h2 class="text-xl font-semibold mb-4">⚙️ Configurações</h2>
-                <p class="text-sm text-gray-600 mb-4">Ajuste parâmetros do sistema, câmeras, coletas e identidade visual aplicada.</p>
+                <p class="text-xs lg:text-sm text-gray-600 mb-4">Ajuste parâmetros do sistema, câmeras, coletas e identidade visual aplicada.</p>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div class="p-4 rounded-xl glass neon hover:neon-strong transition duration-300">Configurações de câmera</div>
@@ -462,7 +506,7 @@
                 </div>
             </section>
 
-           <section id="identidade-visual" class="fade-section hidden opacity-0 pointer-events-none p-10 rounded-2xl glass neon-strong">
+        <section id="identidade-visual" class="fade-section hidden opacity-0 pointer-events-none p-10 rounded-2xl glass neon-strong">
                 <h2 class="text-2xl font-bold mb-4 text-indigo-700">🎨 Identidade Visual — Escudo Orofacial</h2>
                 <p class="text-sm text-gray-600 mb-6">
                     Esta seção consolida toda a linguagem visual do projeto Escudo Orofacial.
@@ -527,31 +571,7 @@
 
             </section>
 
-            <footer class="mt-8 text-sm text-gray-500">© 2025 Escudo Orofacial • Parcerias: IGEos • Fundação BB • UFPEL • UFR • UNEMAT</footer>
         </main>
     </div>
-
-    <script>
-        // Simple area-chart mock using SVG (mantido por consistência)
-        (function(){
-            const chart = document.getElementById('chartArea');
-            if (!chart) return; 
-
-            const svgNS = 'http://www.w3.org/2000/svg';
-            const svg = document.createElementNS(svgNS,'svg');
-            svg.setAttribute('viewBox','0 0 600 120');
-            svg.setAttribute('width','100%'); svg.setAttribute('height','120');
-            const path = document.createElementNS(svgNS,'path');
-            const d = 'M0,80 C80,20 160,40 240,30 C320,10 400,40 480,20 C560,5 600,10 600,80 L600 120 L0 120 Z';
-            path.setAttribute('d',d);
-            path.setAttribute('fill','url(#g)');
-            const defs = document.createElementNS(svgNS,'defs');
-            const lin = document.createElementNS(svgNS,'linearGradient'); lin.setAttribute('id','g'); lin.setAttribute('x1','0'); lin.setAttribute('x2','1');
-            const s1 = document.createElementNS(svgNS,'stop'); s1.setAttribute('offset','0%'); s1.setAttribute('stop-color','#4338CA'); s1.setAttribute('stop-opacity','0.45');
-            const s2 = document.createElementNS(svgNS,'stop'); s2.setAttribute('offset','100%'); s2.setAttribute('stop-color','#1E73BE'); s2.setAttribute('stop-opacity','0.05');
-            lin.appendChild(s1); lin.appendChild(s2); defs.appendChild(lin); svg.appendChild(defs); svg.appendChild(path);
-            chart.appendChild(svg);
-        })();
-    </script>
 </body>
 </html>
